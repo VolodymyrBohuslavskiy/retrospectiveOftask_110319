@@ -5,6 +5,7 @@ import {NgxPaginationModule} from 'ngx-pagination'; // !!!!!
 import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import { EmployeeComponent } from './components/employee/employee.component';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { EmployeeComponent } from './components/employee/employee.component';
   imports: [
     BrowserModule,
     NgxPaginationModule, // !!!!!
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
