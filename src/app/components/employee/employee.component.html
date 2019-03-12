@@ -1,0 +1,55 @@
+<form #EmployeeForm="ngForm" (ngSubmit)="addEmployee(EmployeeForm)">
+  <input type="hidden" name="empID" ngModel>
+  <label>empName <input type="text" name="empName" ngModel></label>
+  <label>empActive <input type="checkbox" name="empActive" ngModel></label>
+  <label>Departament:<select name="department" ngModel>
+
+    <option
+      *ngFor="let department of DepartmantArr"
+      [textContent]="department.dpName"
+      [ngValue]="department"
+    ></option>
+
+  </select>
+  </label>
+  <input type="submit" value="Add">
+</form>
+
+
+<ul style="list-style-type: none">
+  <li *ngFor="let oneEmployee of EmployeeArr | paginate: {itemsPerPage:5, currentPage:page}"
+  >
+    <button (click)="view(oneEmployee)">View</button>
+    <button (click)="setInForm(oneEmployee, EmployeeForm)">Edit</button>
+    {{oneEmployee.empID + ' ' +
+  oneEmployee.empName + ' ' +
+  oneEmployee.empActive + ' ' +
+  oneEmployee.department.dpName}}
+    <button (click)="deleteOne(oneEmployee)">Delete</button>
+  </li>
+
+</ul>
+<pagination-controls (pageChange)="page=$event"></pagination-controls>
+
+<form #searchForm="ngForm" (ngSubmit)="find(searchForm)">
+
+  <label>Enter empName:
+    <input type="text" name="empName" ngModel>
+  </label>
+  <input type="submit" value="Search it">
+</form>
+
+
+<ul style="list-style-type: none">
+  <li *ngFor="let oneEmployee of EmployeeSearchArr"
+  >
+    <button (click)="view(oneEmployee)">View</button>
+    <button (click)="setInForm(oneEmployee, EmployeeForm)">Edit</button>
+    {{oneEmployee.empID + ' ' +
+  oneEmployee.empName + ' ' +
+  oneEmployee.empActive + ' ' +
+  oneEmployee.department.dpName}}
+    <button (click)="deleteOne(oneEmployee)">Delete</button>
+  </li>
+
+</ul>
