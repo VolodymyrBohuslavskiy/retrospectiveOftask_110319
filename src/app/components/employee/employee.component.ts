@@ -17,24 +17,12 @@ export class EmployeeComponent implements OnInit {
 
   constructor(public employeeService: EmployeeService,
               public departmentService: DepartmentService) {
-    this.DepartmantArr.push(
-      // new Department(1, 'HR'),
-      // new Department(2, 'Tech'),
-      // new Department(3, 'Finance'),
-      // new Department(4, 'Freelance')
-    );
-
-    this.EmployeeArr.push(
-      new Employee(1, 'qq1', 'zz1', this.DepartmantArr[0]),
-      new Employee(2, 'qq2', 'zz2', this.DepartmantArr[0]),
-      new Employee(3, 'qq3', 'zz3', this.DepartmantArr[1]),
-      new Employee(4, 'qq4', 'zz4', this.DepartmantArr[2]),
-      new Employee(5, 'qq5', 'zz5', this.DepartmantArr[1])
-    );
-
   }
 
   ngOnInit() {
+    this.departmentService.setDepartments();
+    this.departmentService.getAllDepartments().subscribe(departments => this.DepartmantArr = departments);
+    this.employeeService.getAllEmployees().subscribe(employees => this.EmployeeArr = employees);
   }
 
   addEmployee(EmployeeForm: NgForm) {
