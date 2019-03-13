@@ -24,6 +24,6 @@ export class DepartmentService {
       new Department(2, 'Tech'),
       new Department(3, 'Finance'),
       new Department(4, 'Freelance'));
-    this.http.post('http://localhost:8080/set_magic_departments', JSON.stringify(this.otherMagicDepartments));
+    this.http.post('http://localhost:8080/set_magic_departments', JSON.stringify(this.otherMagicDepartments)).subscribe();
   }
 }

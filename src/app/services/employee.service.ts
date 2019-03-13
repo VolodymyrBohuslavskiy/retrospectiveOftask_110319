@@ -16,15 +16,15 @@ export class EmployeeService {
   }
 
   getEmployeeByName(empName: string): Observable<Employee[]> {
-    return this.http.get<Employee[]>('http://localhost:8080/get_employees_by_name');
+    return this.http.get<Employee[]>('http://localhost:8080/get_employees_by_name-' + empName);
   }
 
   saveEmployee(employee: Employee) {
-    this.http.post('http://localhost:8080/save_employee', JSON.stringify(employee));
+    this.http.post('http://localhost:8080/save_employee', JSON.stringify(employee)).subscribe();
   }
 
   deleteEmployee(employee: Employee) {
-    this.http.delete('http://localhost:8080/delete_employee_id=' + employee.empID);
+    this.http.delete('http://localhost:8080/delete_employee_id=' + employee.empID).subscribe();
   }
 
 }

@@ -20,22 +20,16 @@ export class EmployeeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.departmentService.setDepartments();
+    // this.departmentService.setDepartments(); // Automatic add departments
     this.departmentService.getAllDepartments().subscribe(departments => this.DepartmantArr = departments);
     this.employeeService.getAllEmployees().subscribe(employees => this.EmployeeArr = employees);
   }
 
   addEmployee(EmployeeForm: NgForm) {
     if (EmployeeForm.valid && EmployeeForm.touched) {
-      EmployeeForm.value.empActive = false;
-      this.EmployeeArr.push(
-        new Employee(
-          EmployeeForm.value.empID,
-          EmployeeForm.value.empName,
-          EmployeeForm.value.empActive,
-          this.DepartmantArr.find(value => value.dpID === EmployeeForm.value.department.dpID)
-        )
-      );
+      this.employeeService.saveEmployee(new Employee(null, EmployeeForm.value.empName,
+        EmployeeForm.value.empActive,
+        this.DepartmantArr.find(value => value.dpID === EmployeeForm.value.department.dpID)));
       EmployeeForm.resetForm();
     }
   }
@@ -55,19 +49,10 @@ export class EmployeeComponent implements OnInit {
 
   deleteOne(oneEmployee: Employee) {
     this.EmployeeArr.splice(this.EmployeeArr.findIndex(value => value.empID === oneEmployee.empID), 1);
-    setTimeout(() =>
-        this.EmployeeSearchArr.splice(this.EmployeeArr.findIndex(value => value.empID === oneEmployee.empID), 1),
-      2000
-    )
-    ;
+    this.employeeService.deleteEmployee(oneEmployee);
   }
 
   find(searchForm: NgForm) {
-    for (const employeeArrElement of this.EmployeeArr) {
-      if (employeeArrElement.empName === searchForm.value.empName) {
-        this.EmployeeSearchArr.push(employeeArrElement);
-      }
-    }
-    console.log(this.EmployeeSearchArr);
+    this.employeeService.getEmployeeByName(searchForm.value.empName).subscribe(employeesByName => this.EmployeeSearchArr = employeesByName);
   }
 }

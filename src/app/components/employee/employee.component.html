@@ -2,7 +2,7 @@
   <input type="hidden" name="empID" ngModel>
   <label>empName <input type="text" name="empName" ngModel></label>
   <label>empActive <input type="checkbox" name="empActive" ngModel></label>
-  <label>Departament:<select name="department" ngModel>
+  <label>Departament:<select name="department" ngModel >
 
     <option
       *ngFor="let department of DepartmantArr"
@@ -30,6 +30,8 @@
 
 </ul>
 <pagination-controls (pageChange)="page=$event"></pagination-controls>
+
+
 
 <form #searchForm="ngForm" (ngSubmit)="find(searchForm)">
 
